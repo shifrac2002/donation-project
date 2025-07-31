@@ -23,7 +23,7 @@ function Donates() {
     useEffect(() => {
         async function fetchShuls() {
             debugger
-            const url = `${process.env.REACT_APP_API_URL}/api/shul/all/${fromIndex}`
+            const url = `http://localhost:3000/api/shul/all/${fromIndex}`
             let response = await fetch(url);
             let current = await response.json();
             if (current == null) {
@@ -45,7 +45,7 @@ function Donates() {
         debugger;
         setReturnBefor(true)
         setMoreShul(false)
-        let response = await fetch(`${process.env.REACT_APP_API_URL}/api/shul/search/${nameOfShul}`);
+        let response = await fetch(`http://localhost:3000/api/shul/search/${nameOfShul}`);
         let resultShuls = await response.json();
         if (resultShuls == null) {
             setExist(false);
@@ -80,7 +80,7 @@ function Donates() {
         let shul = [...shuls];
         if (currentShulsReturn.length === 10) {
             console.log(fromIndex)
-            const url = `${process.env.REACT_APP_API_URL}/api/shul/all/${fromIndex}`;
+            const url = `http://localhost:3000/api/shul/all/${fromIndex}`;
             let response = await fetch(url);
             let current = await response.json();
             shul = shuls.concat(current);

@@ -137,7 +137,7 @@ function SignUp() {
             if (location.state) {
                 setIfFromDonation(false)
             }
-            let resultShuls = await fetch(`${process.env.REACT_APP_API_URL}/api/shul/all`);
+            let resultShuls = await fetch(`http://localhost:3000/api/shul/all`);
             let shuls = await resultShuls.json();
             console.log(shuls);
             setShuls(shuls);
@@ -153,7 +153,7 @@ function SignUp() {
             }
             else {
                 console.log(user);
-                const url = `${process.env.REACT_APP_API_URL}/api/user/add`;
+                const url = `http://localhost:3000/api/user/add`;
                 let response = await fetch(url, {
                     method: 'POST',
                     headers: {
@@ -199,7 +199,7 @@ function SignUp() {
         formData.append('address', shul.address);
         formData.append('email', shul.email);
         formData.append('imageName', imageName);
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/shul/add`, {
+        const response = await fetch(`http://localhost:3000/api/shul/add`, {
             method: 'POST',
             body: formData,
         })

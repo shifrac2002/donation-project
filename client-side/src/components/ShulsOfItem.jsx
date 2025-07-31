@@ -17,7 +17,7 @@ function ShulsOfItem() {
 
     useEffect(() => {
         async function allItems() {
-            const url = `${process.env.REACT_APP_API_URL}/api/item/${location.state.itemId}/getShuls`;
+            const url = `http://localhost:3000/api/item/${location.state.itemId}/getShuls`;
             let response = await fetch(url);
             const content = await response.json();
             console.log(content);
@@ -45,7 +45,7 @@ function ShulsOfItem() {
     async function search() {
         debugger
         setSearchH(true)
-        const url = `${process.env.REACT_APP_API_URL}/api/shul/${nameOfShul.itemId}/getShuls/searchShul/${nameOfShul.name}`;
+        const url = `http://localhost:3000/api/shul/${nameOfShul.itemId}/getShuls/searchShul/${nameOfShul.name}`;
         let response = await fetch(url);
         const content = await response.json();
         console.log(content);

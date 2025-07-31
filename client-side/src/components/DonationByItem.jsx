@@ -21,7 +21,7 @@ function DonationByItem() {
     useEffect(() => {
         async function allItems() {
             debugger
-            const url = `${process.env.REACT_APP_API_URL}/api/item/all/${fromIndex}`;
+            const url = `http://localhost:3000/api/item/all/${fromIndex}`;
             let response = await fetch(url);
             let myItems = await response.json();
             if (myItems == null) {
@@ -40,7 +40,7 @@ function DonationByItem() {
         setReturnBefor(true)
         setMoreItems(false)
         sessionStorage.setItem('allItems', items);
-        const url = `${process.env.REACT_APP_API_URL}/api/item/search/${nameOfItem.name}`;
+        const url = `http://localhost:3000/api/item/search/${nameOfItem.name}`;
         let response = await fetch(url);
         const itemSearch = await response.json();
         console.log(itemSearch);
@@ -74,7 +74,7 @@ function DonationByItem() {
     async function more() {
         let item = [...items];
         if (currentDonationsReturn.length == 10) {
-            const url = `${process.env.REACT_APP_API_URL}/api/item/all/${fromIndex}`;
+            const url = `http://localhost:3000/api/item/all/${fromIndex}`;
             let response = await fetch(url);
             let current = await response.json();
             item = items.concat(current);

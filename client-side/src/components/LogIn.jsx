@@ -196,7 +196,7 @@ function LogIn() {
             if (user.email == '' || user.password == '')
                 alert("פרטים לא מלאים");
             else {
-                const url = `${process.env.REACT_APP_API_URL}/api/user/logIn`;
+                const url = `http://localhost:3000/api/user/logIn`;
                 let response = await fetch(url, {
                     method: 'POST',
                     headers: {
@@ -279,7 +279,7 @@ function LogIn() {
                         <button
                             type="button"
                             onClick={() => {
-                                window.location.href = `${process.env.REACT_APP_API_URL}/api/auth/github`;
+                                window.location.href = `http://localhost:3000/api/auth/github`;
                             }}
                         >
                             התחברות עם GitHub

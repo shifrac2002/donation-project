@@ -34,7 +34,7 @@ function UpdateItem(props) {
     async function UpdateClicked() {
         debugger;
         console.log(item, "hello");
-        const url = `${process.env.REACT_APP_API_URL}/api/item/update`;
+        const url = `http://localhost:3000/api/item/update`;
         let response = await fetch(url, {
             method: 'PUT',
             headers: {

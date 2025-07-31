@@ -24,7 +24,7 @@ function DeleteItem() {
     }
     async function DeleteClicked() {
         console.log(item);
-        const url = `${process.env.REACT_APP_API_URL}/api/item/delete`;
+        const url = `http://localhost:3000/api/item/delete`;
         let response = await fetch(url, {
             method: 'POST',
             headers: {
