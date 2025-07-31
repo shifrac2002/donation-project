@@ -1,0 +1,305 @@
+.background .shape1{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+}
+.shape1:first-child{
+    background: linear-gradient(
+        #dfbe9f,
+        #94806a
+    );
+    left: -100px;
+    top: 7px;
+}
+.shape1:last-child{
+    background: linear-gradient(
+        to right,
+        #8b8576,
+        #57524d
+    );
+    right: -95px;
+    bottom: -425px;
+}
+.background .shape2{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+}
+.shape2:first-child{
+    background: linear-gradient(
+        #dfbe9f,
+        #94806a
+    );
+    left: -100px;
+    top: -3px;
+}
+.shape2:last-child{
+    background: linear-gradient(
+        to right,
+        #8b8576,
+        #57524d
+    );
+    right: -95px;
+    bottom: -505px;
+}
+#formSignUp{
+    height: 880px;
+    width: 400px;
+    background-color: rgba(85, 90, 85, 0.13);
+    position: absolute;
+    transform: translate(-50%,-48%);
+    top: 80%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 0px 35px;
+}
+#formUpdate{
+    height: 900px;
+    width: 400px;
+    background-color: rgba(85, 90, 85, 0.13);
+    position: absolute;
+    transform: translate(-50%,-48%);
+    top: 80%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 0px 35px;
+}
+form *{
+    font-family: 'Poppins',sans-serif;
+    color: #252121;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+form h3{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+}
+
+label{
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+::placeholder{
+    color: #5a4f4f;
+}
+.btnSignUp{
+    margin-top: 16px;
+    width: 100%;
+    background-color: #dfbe9f;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.social{
+  margin-top: 30px;
+  display: flex;
+}
+.social div{
+  /* background: red; */
+  width: 150px;
+  border-radius: 3px;
+  padding: 5px 10px 10px 5px;
+  background-color: rgba(255,255,255,0.27);
+  color: #406fc5;
+  text-align: center;
+}
+
+.social div:hover{
+  background-color: dfbe9f
+}
+
+.social .fb{
+  margin-left: 25px;
+}
+
+.social i{
+  margin-right: 4px;
+}
+
+.shulImg{
+    width: 342px;
+    height: 306px;
+    object-fit: cover;
+    margin-top: -15px;
+    margin-bottom: 11px;
+}
+
+.shulImages{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly
+}
+
+.btnShul{
+    width: 350px
+}
+
+nav{
+    display: flex;
+    background-color: #dfbe9f ;
+    height: 58px;
+    justify-content: space-evenly;
+}
+
+a{
+    align-self: center;
+    color: black;
+    text-decoration: none;
+}
+
+.itemsOfShul{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly
+}
+
+.itemShul{
+    border: solid;
+    padding: 30px;
+    margin: 10px;
+}
+
+.itemClick{
+    width: 100px;
+    margin: 10px;
+}
+
+.gabay , .h2login{
+    text-align: center;
+    color: #dfbe9f;
+    margin-top: 200px; 
+    border: solid;
+}
+
+.btnBack{
+    margin-top: 16px;
+    background-color: #dfbe9f;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 121px;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.confirmation{
+    display: grid;
+    flex-wrap: wrap;
+    justify-content: space-evenly
+}
+
+.confirmationInp{ 
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(207, 46, 46, 0.07);
+    border-radius: 17px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.confirmationInpImage{
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(207, 46, 46, 0.07);
+    border-radius: 17px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+    border-color: #080710;
+    border: none;
+}
+
+.confirmationDiv{
+    height: 73px;
+    width: 106%;
+    border-radius: 17px;
+    font-size: 14px;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.h1Donate{
+    text-align: center;
+    color: #e1a873;
+}
+
+.tDonate{
+    color: #e1a873;
+}
+
+.btnOkConfirmation{
+    margin-top: -50px;
+    width: 100%;
+    background-color: #dfbe9f;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 17px;
+    cursor: pointer;
+}
+
+.h2Titel{
+    text-align: center;
+}
+
+.h1Donation{
+    color: #dfbe9f;
+    text-align: center;
+}
+
+.h2Donation{
+    color: #dfbe9f;
+    text-align: center;
+    margin: 15px;
+}
+.divSh{
+    text-align: center;
+    margin: 15px;
+}
+
+.spanError{
+    color: #e1a873;
+}
+
+.optionShuls{
+    background-color: #dfbe9f;
+    text-align: center;
+}
+
+.buttonAddItem{
+    margin-top: 32px;
+    width: 108%;
+    background-color: #dfbe9f;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
