@@ -44,7 +44,7 @@ function ItemsOfShul() {
     useEffect(() => {
         async function fetchItemsShul() {
             console.log(location.state.shul.NameShul)
-            const url = `http://localhost:3000/api/item/notDonations/${location.state.shul.ShulId}`;
+            const url = `https://donation-project-server.onrender.com/api/item/notDonations/${location.state.shul.ShulId}`;
             let response = await fetch(url);
             const ItemOfShul = await response.json();
             console.log(ItemOfShul);
@@ -69,7 +69,7 @@ function ItemsOfShul() {
         debugger
         setSeachH(true)
         console.log(itemInSearch);
-        const url = `http://localhost:3000/api/item/notDonations/search/${itemInSearch.shulId}/${itemInSearch.name}`;
+        const url = `https://donation-project-server.onrender.com/api/item/notDonations/search/${itemInSearch.shulId}/${itemInSearch.name}`;
         let response = await fetch(url);
         const result = await response.json();
         console.log(result);

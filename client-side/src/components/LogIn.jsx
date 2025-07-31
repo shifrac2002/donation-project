@@ -196,7 +196,7 @@ function LogIn() {
             if (user.email == '' || user.password == '')
                 alert("פרטים לא מלאים");
             else {
-                const url = `http://localhost:3000/api/user/logIn`;
+                const url = `https://donation-project-server.onrender.com/api/user/logIn`;
                 let response = await fetch(url, {
                     method: 'POST',
                     headers: {
@@ -279,7 +279,7 @@ function LogIn() {
                         <button
                             type="button"
                             onClick={() => {
-                                window.location.href = `http://localhost:3000/api/auth/github`;
+                                window.location.href = `https://donation-project-server.onrender.com/api/auth/github`;
                             }}
                         >
                             התחברות עם GitHub

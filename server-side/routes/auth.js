@@ -92,7 +92,7 @@ router.get('/github/callback',
       email = req.user.emails[0].email;
     }
     console.log('Redirecting with email:', email);
-    res.redirect(`http://localhost:3000/github-success?email=${encodeURIComponent(email)}`);
+    res.redirect(`https://donation-project-server.onrender.com/github-success?email=${encodeURIComponent(email)}`);
   });
 
 

@@ -13,7 +13,7 @@ function DonatedItems(props) {
     useEffect(() => {
         async function fetchAllDonation() {
             debugger
-            const url = `http://localhost:3000/api/item/donatedItems/${props.ShulId}`;
+            const url = `https://donation-project-server.onrender.com/api/item/donatedItems/${props.ShulId}`;
             let response = await fetch(url);
             console.log(response)
             const result = await response.json();
@@ -23,7 +23,7 @@ function DonatedItems(props) {
                 setItemsDonated([...result]);
             }
 
-            let res = await fetch(`http://localhost:3000/api/shul/${props.ShulId}/getFreeDonation`);
+            let res = await fetch(`https://donation-project-server.onrender.com/api/shul/${props.ShulId}/getFreeDonation`);
             console.log(res);
             const content = await res.json();
             debugger

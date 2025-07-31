@@ -33,7 +33,7 @@ function UpdateUser() {
                 navigate('/LogIn');
                 return;
             }
-            const response = await fetch(`http://localhost:3000/api/user/${email}/${type}`);
+            const response = await fetch(`https://donation-project-server.onrender.com/api/user/${email}/${type}`);
             const data = await response.json();
             if (data && data.length > 0) {
                 const u = data[0];
@@ -51,7 +51,7 @@ function UpdateUser() {
                 });
             }
 
-            const resultShuls = await fetch(`http://localhost:3000/api/shul/all`);
+            const resultShuls = await fetch(`https://donation-project-server.onrender.com/api/shul/all`);
             const allShuls = await resultShuls.json();
             setShuls(allShuls);
         }
@@ -97,7 +97,7 @@ function UpdateUser() {
         }
         setNotValidMail(false);
         debugger
-        const response = await fetch(`http://localhost:3000/api/user/update`, {
+        const response = await fetch(`https://donation-project-server.onrender.com/api/user/update`, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'

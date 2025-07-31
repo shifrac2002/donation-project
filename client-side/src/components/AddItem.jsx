@@ -71,7 +71,7 @@ function AddItem(props) {
             formData.append('Amount', item.Amount);
             formData.append('ShulId', item.ShulId);
             formData.append('imageName', imageName);
-            const response = await fetch(`http://localhost:3000/api/item/add`, {
+            const response = await fetch(`https://donation-project-server.onrender.com/api/item/add`, {
                 method: 'POST',
                 body: formData,
             })

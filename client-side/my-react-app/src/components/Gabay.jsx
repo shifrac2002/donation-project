@@ -23,7 +23,7 @@ function Gabay() {
             setmessageGabay(true);
             let data = { email: email };
             console.log(email);
-            let url = `http://localhost:3000/api/gabay/getShul`;
+            let url = `https://donation-project-server.onrender.com/api/gabay/getShul`;
             let response = await fetch(url, {
                 method: 'POST',
                 headers: {
@@ -36,7 +36,7 @@ function Gabay() {
             console.log(myShul);
             setShul(myShul);
             debugger
-            url = `http://localhost:3000/api/user/${sessionStorage.getItem('email')}/numWorshipers`;
+            url = `https://donation-project-server.onrender.com/api/user/${sessionStorage.getItem('email')}/numWorshipers`;
             let response2 = await fetch(url);
             console.log(response2);
             let content2 = await response2.json();

@@ -12,12 +12,12 @@ function Dedications(props) {
     const [flagFreeDedication, setFlagFreeDedication] = useState(false);
     useEffect(() => {
         async function allDedications() {
-            let result1 = await fetch(`http://localhost:3000/api/shul/${props.ShulId}/itemsDedication`);
+            let result1 = await fetch(`https://donation-project-server.onrender.com/api/shul/${props.ShulId}/itemsDedication`);
             let itemsDedication = await result1.json();
             setItemDedication(itemsDedication);
             if (itemsDedication[0] == null)
                 setFlagItemDedication(true)
-            let result2 = await fetch(`http://localhost:3000/api/shul/${props.ShulId}/freeDedication`);
+            let result2 = await fetch(`https://donation-project-server.onrender.com/api/shul/${props.ShulId}/freeDedication`);
             let freeDedication = await result2.json();
             console.log(freeDedication);
             setfreeDedication(freeDedication);
@@ -29,7 +29,7 @@ function Dedications(props) {
     async function handlingItemDedication(id) {
         let data = { id: id }
         console.log(data);
-        const url = `http://localhost:3000/api/dedication/itemHandling`;
+        const url = `https://donation-project-server.onrender.com/api/dedication/itemHandling`;
         let response = await fetch(url, {
             method: 'PUT',
             headers: {
@@ -54,7 +54,7 @@ function Dedications(props) {
     async function handlingFreeDedication(id) {
         let data = { id: id }
         console.log(data);
-        const url = `http://localhost:3000/api/dedication/freeHandling`;
+        const url = `https://donation-project-server.onrender.com/api/dedication/freeHandling`;
         let response = await fetch(url, {
             method: 'PUT',
             headers: {

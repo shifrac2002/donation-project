@@ -34,7 +34,7 @@ function FreeDonation() {
     useEffect(() => {
         async function fetchShuls() {
             if (sessionStorage.getItem('email')) {
-                let resultShuls = await fetch(`http://localhost:3000/api/shul/all`);
+                let resultShuls = await fetch(`https://donation-project-server.onrender.com/api/shul/all`);
                 let shuls = await resultShuls.json();
                 console.log(shuls);
                 setShuls(shuls);
@@ -48,7 +48,7 @@ function FreeDonation() {
 
     async function saveDonation() {
         console.log(freeDonation)
-        const url = `http://localhost:3000/api/donation/save`;
+        const url = `https://donation-project-server.onrender.com/api/donation/save`;
         let response = await fetch(url, {
             method: 'POST',
             headers: {

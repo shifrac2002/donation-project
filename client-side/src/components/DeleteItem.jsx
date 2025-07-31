@@ -24,7 +24,7 @@ function DeleteItem() {
     }
     async function DeleteClicked() {
         console.log(item);
-        const url = `http://localhost:3000/api/item/delete`;
+        const url = `https://donation-project-server.onrender.com/api/item/delete`;
         let response = await fetch(url, {
             method: 'POST',
             headers: {

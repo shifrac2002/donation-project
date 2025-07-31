@@ -88,7 +88,7 @@ function Confirmation() {
       email: sessionStorage.getItem('email')
     }
     console.log(date);
-    const url = `http://localhost:3000/api/donation`;
+    const url = `https://donation-project-server.onrender.com/api/donation`;
     let response = await fetch(url, {
       method: 'POST',
       headers: {

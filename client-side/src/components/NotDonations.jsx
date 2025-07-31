@@ -19,7 +19,7 @@ function NotDonations(props) {
         debugger;
         async function allNotDonation() {
             console.log(props.ShulId)
-            const url = `http://localhost:3000/api/item/notDonations/${props.ShulId}`;
+            const url = `https://donation-project-server.onrender.com/api/item/notDonations/${props.ShulId}`;
             let response = await fetch(url);
             const myItems = await response.json();
             console.log(myItems);
@@ -94,7 +94,7 @@ function NotDonations(props) {
         try {
             debugger
             let data = { itemId: itemId, newAmount: newAmount }
-            const url = `http://localhost:3000/api/item/delete`;
+            const url = `https://donation-project-server.onrender.com/api/item/delete`;
             await fetch(url, {
                 method: 'POST',
                 headers: {

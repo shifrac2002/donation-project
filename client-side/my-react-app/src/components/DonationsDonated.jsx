@@ -23,18 +23,18 @@ function DonationsDonated() {
     async function fetchDonations() {
       const email = sessionStorage.getItem('email');
       if (email) {
-        let res1 = await fetch(`http://localhost:3000/api/user/${email}/freeDonation`);
+        let res1 = await fetch(`https://donation-project-server.onrender.com/api/user/${email}/freeDonation`);
         let data1 = await res1.json();
         setFreeDonations(data1);
 
-        let res2 = await fetch(`http://localhost:3000/api/user/${email}/itemDonation`);
+        let res2 = await fetch(`https://donation-project-server.onrender.com/api/user/${email}/itemDonation`);
         let data2 = await res2.json();
         setItemDonations(data2);
 
-        let res3 = await fetch(`http://localhost:3000/api/user/${email}/shul`);
+        let res3 = await fetch(`https://donation-project-server.onrender.com/api/user/${email}/shul`);
         let data3 = await res3.json();
         if (data3 && data3[0]) setAssociatedShul(data3[0].NameShul);
-        let shulRes = await fetch('http://localhost:3000/api/shul/all');
+        let shulRes = await fetch('https://donation-project-server.onrender.com/api/shul/all');
         let shulData = await shulRes.json();
         setShuls(shulData);
       } else {
@@ -92,7 +92,7 @@ function DonationsDonated() {
   }
   async function updateShul() {
     const email = sessionStorage.getItem('email');
-    const response = await fetch(`http://localhost:3000/api/user/update/${email}/shul`, {
+    const response = await fetch(`https://donation-project-server.onrender.com/api/user/update/${email}/shul`, {
       method: "PUT",
       headers: {
         'Content-Type': 'application/json'
