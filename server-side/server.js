@@ -15,7 +15,7 @@ const authRoutes = require('./routes/auth');
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(session({
   secret: '0556742514!!',
   resave: false,
