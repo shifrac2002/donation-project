@@ -153,19 +153,29 @@ passport.deserializeUser((obj, done) => done(null, obj));
 
 // נתיב התחברות ל-GitHub
 router.get('/github', passport.authenticate('github', { scope: ['user:email'] }));
-// הוסף את זה לקובץ הראשי של השרת (app.js או server.js)
+
+// נתיב callback
+router.get('/github/callback',
+  passport.authenticate('github', { failureRedirect: '/' }),
+  function (req, res) {
+    let email = 'unknown';
+    if (req.user && req.user.emails && req.user.emails.length > 0) {
+      email = req.user.emails[0].email;
+    }
+    
+    console.log('GitHub auth successful, redirecting with email:', email);
+    
+    // ★ שנה גם את הכתובת הזו אם צריך
+    res.redirect(`https://donation-project-server.onrender.com/github-success?email=${encodeURIComponent(email)}`);
+  });
 
 // נתיב שמטפל בהצלחת ההתחברות עם גיטהאב
-app.get('/github-success', (req, res) => {
+router.get('/github-success', (req, res) => {
   const email = req.query.email;
   
   if (email && email !== 'unknown') {
-    // כאן תוכל לעשות מה שאת צריכה עם המייל
-    // לדוגמה: לשמור במסד נתונים, ליצור JWT token, וכו'
-    
     console.log('User logged in with GitHub:', email);
     
-    // דוגמה: מחזיר HTML פשוט
     res.send(`
       <html>
         <head>
@@ -178,7 +188,7 @@ app.get('/github-success', (req, res) => {
           <button onclick="window.close()">סגור חלון</button>
           <script>
             setTimeout(() => {
-              window.location.href = '/dashboard'; // או כל דף אחר
+              window.location.href = '/'; // הפנה לדף הראשי
             }, 3000);
           </script>
         </body>
@@ -200,19 +210,5 @@ app.get('/github-success', (req, res) => {
     `);
   }
 });
-// נתיב callback
-router.get('/github/callback',
-  passport.authenticate('github', { failureRedirect: '/' }),
-  function (req, res) {
-    let email = 'unknown';
-    if (req.user && req.user.emails && req.user.emails.length > 0) {
-      email = req.user.emails[0].email;
-    }
-    
-    console.log('GitHub auth successful, redirecting with email:', email);
-    
-    // ★ שנה גם את הכתובת הזו אם צריך
-    res.redirect(`https://donation-project-server.onrender.com/github-success?email=${encodeURIComponent(email)}`);
-  });
 
 module.exports = router;
