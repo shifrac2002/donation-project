@@ -33,87 +33,20 @@
 //   });
 
 // module.exports = router;
-// const express = require('express');
-// const router = express.Router();
-// const passport = require('passport');
-// const GitHubStrategy = require('passport-github2').Strategy;
-// const fetch = require('node-fetch');  // אם אין התקן, תריץ: npm install node-fetch
-
-// passport.use(new GitHubStrategy({
-//   clientID: 'Ov23liNT9gMWp8kfCHWM',
-//   clientSecret: 'e79f78562459df8298673b0f283a61ccfe29e820',
-//   callbackURL: "http://localhost:6200/api/auth/github/callback"
-// },
-//   async function (accessToken, refreshToken, profile, done) {
-//     try {
-//       console.log("dddddddddddddddddddddd")
-//       // קריאה ל-API לקבלת רשימת המיילים
-//       const res = await fetch('https://api.github.com/user/emails', {
-//         headers: {
-//           'Authorization': `token ${accessToken}`,
-//           'User-Agent': 'Node.js'
-//         }
-//       });
-//       console.log("ffffffffffffffff")
-
-//       const emails = await res.json();
-//       console.log(emails)
-
-//       // מחפשים מייל ראשי ומאומת
-//       const primaryEmailObj = emails.find(email => email.primary && email.verified);
-
-//       if (primaryEmailObj) {
-//         profile.emails = [primaryEmailObj];
-//       } else {
-//         profile.emails = [];
-//       }
-//       console.log(profile.emails[0].email + "profile")
-//       return done(null, profile);
-//     } catch (error) {
-//       console.error('Error fetching emails:', error);
-//       return done(error, profile);
-//     }
-//   }
-// ));
-
-// // סדרות ופרוק
-// passport.serializeUser((user, done) => done(null, user));
-// passport.deserializeUser((obj, done) => done(null, obj));
-
-// // נתיב התחברות ל-GitHub
-// router.get('/github', passport.authenticate('github', { scope: ['user:email'] }));
-
-// // נתיב callback
-// router.get('/github/callback',
-//   passport.authenticate('github', { failureRedirect: '/' }),
-//   function (req, res) {
-//     let email = 'unknown';
-//     if (req.user && req.user.emails && req.user.emails.length > 0) {
-//       email = req.user.emails[0].email;
-//     }
-//     console.log('Redirecting with email:', email);
-//     res.redirect(`https://donation-project-server.onrender.com/github-success?email=${encodeURIComponent(email)}`);
-//   });
-
-
-// module.exports = router;
-
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
-const fetch = require('node-fetch');
+const fetch = require('node-fetch');  // אם אין התקן, תריץ: npm install node-fetch
 
 passport.use(new GitHubStrategy({
   clientID: 'Ov23liNT9gMWp8kfCHWM',
   clientSecret: 'e79f78562459df8298673b0f283a61ccfe29e820',
-  // ★ שנה את הכתובת הזו לכתובת האמיתית של השרת שלך
   callbackURL: "https://donation-project-server.onrender.com/api/auth/github/callback"
 },
   async function (accessToken, refreshToken, profile, done) {
     try {
-      console.log("Starting GitHub auth process");
-      
+      console.log("dddddddddddddddddddddd")
       // קריאה ל-API לקבלת רשימת המיילים
       const res = await fetch('https://api.github.com/user/emails', {
         headers: {
@@ -121,11 +54,10 @@ passport.use(new GitHubStrategy({
           'User-Agent': 'Node.js'
         }
       });
-      
-      console.log("Fetched emails from GitHub");
+      console.log("ffffffffffffffff")
 
       const emails = await res.json();
-      console.log('GitHub emails:', emails);
+      console.log(emails)
 
       // מחפשים מייל ראשי ומאומת
       const primaryEmailObj = emails.find(email => email.primary && email.verified);
@@ -133,12 +65,9 @@ passport.use(new GitHubStrategy({
       if (primaryEmailObj) {
         profile.emails = [primaryEmailObj];
       } else {
-        // אם אין מייל ראשי, ניקח את הראשון שמאומת
-        const verifiedEmail = emails.find(email => email.verified);
-        profile.emails = verifiedEmail ? [verifiedEmail] : [];
+        profile.emails = [];
       }
-      
-      console.log('Final profile email:', profile.emails[0]?.email || 'No email found');
+      console.log(profile.emails[0].email + "profile")
       return done(null, profile);
     } catch (error) {
       console.error('Error fetching emails:', error);
@@ -162,53 +91,9 @@ router.get('/github/callback',
     if (req.user && req.user.emails && req.user.emails.length > 0) {
       email = req.user.emails[0].email;
     }
-    
-    console.log('GitHub auth successful, redirecting with email:', email);
-    
-    // ★ שנה גם את הכתובת הזו אם צריך
-    res.redirect(`https://donation-project-server.onrender.com/github-success?email=${encodeURIComponent(email)}`);
+    console.log('Redirecting with email:', email);
+    res.redirect(`https://donation-project-server.onrender.com/github/callback?email=${encodeURIComponent(email)}`);
   });
 
-// נתיב שמטפל בהצלחת ההתחברות עם גיטהאב
-router.get('/github-success', (req, res) => {
-  const email = req.query.email;
-  
-  if (email && email !== 'unknown') {
-    console.log('User logged in with GitHub:', email);
-    
-    res.send(`
-      <html>
-        <head>
-          <title>התחברות מוצלחת</title>
-          <meta charset="utf-8">
-        </head>
-        <body style="font-family: Arial; text-align: center; margin-top: 50px;">
-          <h1>✅ התחברת בהצלחה!</h1>
-          <p>המייל שלך: <strong>${email}</strong></p>
-          <button onclick="window.close()">סגור חלון</button>
-          <script>
-            setTimeout(() => {
-              window.location.href = '/'; // הפנה לדף הראשי
-            }, 3000);
-          </script>
-        </body>
-      </html>
-    `);
-  } else {
-    res.status(400).send(`
-      <html>
-        <head>
-          <title>שגיאה בהתחברות</title>
-          <meta charset="utf-8">
-        </head>
-        <body style="font-family: Arial; text-align: center; margin-top: 50px;">
-          <h1>❌ שגיאה בהתחברות</h1>
-          <p>לא הצלחנו לקבל את המייל מגיטהאב</p>
-          <a href="/">חזור לדף הראשי</a>
-        </body>
-      </html>
-    `);
-  }
-});
 
 module.exports = router;
