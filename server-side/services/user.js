@@ -101,11 +101,11 @@ async function associatedShul(email) {
 
 async function numberWorshipers(email) {
   const shulResult = await db.query(
-    `SELECT ShulId FROM Customers WHERE Mail = '${email}' AND UserType = 1`
+    `SELECT ShulId FROM customers WHERE Mail = '${email}' AND UserType = 1`
   );
   const shulId = shulResult[0].ShulId;
   const countResult = await db.query(
-    `SELECT COUNT(*) AS total FROM Customers WHERE ShulId = ${shulId} AND UserType = 2`
+    `SELECT COUNT(*) AS total FROM customers WHERE ShulId = ${shulId} AND UserType = 2`
   );
   if (countResult == 0) {
     return null;
