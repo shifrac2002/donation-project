@@ -32,6 +32,8 @@ router.get('/github/callback',
     res.redirect(`https://donation-project-client.onrender.com/github-success?email=${encodeURIComponent(email)}`);
   });
 
+module.exports = router;
+
 // module.exports = router;
 // const express = require('express');
 // const router = express.Router();
