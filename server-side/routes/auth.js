@@ -153,7 +153,53 @@ passport.deserializeUser((obj, done) => done(null, obj));
 
 // נתיב התחברות ל-GitHub
 router.get('/github', passport.authenticate('github', { scope: ['user:email'] }));
+// הוסף את זה לקובץ הראשי של השרת (app.js או server.js)
 
+// נתיב שמטפל בהצלחת ההתחברות עם גיטהאב
+app.get('/github-success', (req, res) => {
+  const email = req.query.email;
+  
+  if (email && email !== 'unknown') {
+    // כאן תוכל לעשות מה שאת צריכה עם המייל
+    // לדוגמה: לשמור במסד נתונים, ליצור JWT token, וכו'
+    
+    console.log('User logged in with GitHub:', email);
+    
+    // דוגמה: מחזיר HTML פשוט
+    res.send(`
+      <html>
+        <head>
+          <title>התחברות מוצלחת</title>
+          <meta charset="utf-8">
+        </head>
+        <body style="font-family: Arial; text-align: center; margin-top: 50px;">
+          <h1>✅ התחברת בהצלחה!</h1>
+          <p>המייל שלך: <strong>${email}</strong></p>
+          <button onclick="window.close()">סגור חלון</button>
+          <script>
+            setTimeout(() => {
+              window.location.href = '/dashboard'; // או כל דף אחר
+            }, 3000);
+          </script>
+        </body>
+      </html>
+    `);
+  } else {
+    res.status(400).send(`
+      <html>
+        <head>
+          <title>שגיאה בהתחברות</title>
+          <meta charset="utf-8">
+        </head>
+        <body style="font-family: Arial; text-align: center; margin-top: 50px;">
+          <h1>❌ שגיאה בהתחברות</h1>
+          <p>לא הצלחנו לקבל את המייל מגיטהאב</p>
+          <a href="/">חזור לדף הראשי</a>
+        </body>
+      </html>
+    `);
+  }
+});
 // נתיב callback
 router.get('/github/callback',
   passport.authenticate('github', { failureRedirect: '/' }),
