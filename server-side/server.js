@@ -29,6 +29,12 @@ app.use(passport.session());
 const port = process.env.PORT || 6200;
 app.use(cors());
 app.use(express.json());
+// בקובץ הראשי, לפני כל הrouter-ים
+app.use((req, res, next) => {
+  console.log(`🔍 REQUEST: ${req.method} ${req.originalUrl}`);
+  next();
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/users', user);
 app.use('/api/user', user);
