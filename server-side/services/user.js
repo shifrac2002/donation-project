@@ -28,7 +28,30 @@ async function whatType(data) {
     return "תורם"
   }
 }
-
+async function checkUserByEmailOnly(email) {
+  const result = await db.query(`SELECT * FROM shul.customers WHERE Mail="${email}";`);
+  console.log(result);
+  
+  if (result[0] == null) {
+    console.log("user not exist");
+    return "לא קיים";
+  }
+  
+  if (result.length > 1) {
+    console.log("two options for same email");
+    return "שתי אפשרויות";
+  }
+  
+  if (result[0].UserType == 1) {
+    console.log("gabay");
+    return "גבאי";
+  }
+  
+  if (result[0].UserType == 2) {
+    console.log("donates");
+    return "תורם";
+  }
+}
 async function createUser(data) {
   console.log(data)
   const result = await db.query(`SELECT * FROM shul.customers where Mail="${data.email}" and Password="${data.password}";`);
@@ -148,5 +171,5 @@ async function updateUserShul(email, shulId) {
 }
 
 module.exports = {
-  allUsers, whatType, createUser, allFreeDonation, allItemDonation, associatedShul, numberWorshipers, getUserByEmail, updateUser, updateUserShul
+  allUsers, whatType, createUser, allFreeDonation, allItemDonation, associatedShul, numberWorshipers, getUserByEmail, updateUser, updateUserShul, checkUserByEmailOnly
 }

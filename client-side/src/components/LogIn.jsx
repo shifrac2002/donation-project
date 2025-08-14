@@ -184,10 +184,10 @@ function LogIn() {
 
     function toSignUp() {
         if (location.state) {
-            navigate('/signUp', { state: { item: location.state.item, amount: location.state.amount } })
+            navigate('/SignUp', { state: { item: location.state.item, amount: location.state.amount } })
         }
         else {
-            navigate('/signUp')
+            navigate('/SignUp')
         }
     }
 
