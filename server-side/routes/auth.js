@@ -120,7 +120,7 @@ passport.use(new GitHubStrategy({
         username: profile.username,
         displayName: profile.displayName
       });
-      
+
       // נקבל את המיילים בקריאה נפרדת
       const emailResponse = await fetch('https://api.github.com/user/emails', {
         headers: {
@@ -128,15 +128,15 @@ passport.use(new GitHubStrategy({
           'User-Agent': 'Donation-App'
         }
       });
-      
+
       if (emailResponse.ok) {
         const emails = await emailResponse.json();
         console.log('Emails from GitHub API:', emails);
-        
+
         // מחפשים מייל ראשי ומאומת
         const primaryEmail = emails.find(email => email.primary && email.verified);
         const verifiedEmail = emails.find(email => email.verified);
-        
+
         // נוסיף את המיילים לפרופיל
         if (primaryEmail) {
           profile.emails = [{ value: primaryEmail.email }];
@@ -145,13 +145,13 @@ passport.use(new GitHubStrategy({
         } else {
           profile.emails = [];
         }
-        
+
         console.log('Final profile emails:', profile.emails);
       } else {
         console.log('Failed to fetch emails from GitHub');
         profile.emails = [];
       }
-      
+
       return done(null, profile);
     } catch (error) {
       console.error('Error in GitHub Strategy:', error);
@@ -182,32 +182,32 @@ router.get('/github', (req, res, next) => {
 // נתיב callback
 router.get('/github/callback', (req, res, next) => {
   console.log('=== GitHub callback started ===');
-  
-  passport.authenticate('github', { 
+
+  passport.authenticate('github', {
     failureRedirect: '/',
     session: true
-  }, (err, user, info) => {
+  }, async (err, user, info) => {
     console.log('=== Passport authenticate callback ===');
-    
+
     if (err) {
       console.error('Auth error:', err);
       return res.redirect('https://donation-project-client.onrender.com/github-success?email=auth-error');
     }
-    
+
     if (!user) {
       console.log('No user returned');
       return res.redirect('https://donation-project-client.onrender.com/github-success?email=no-user');
     }
-    
+
     // התחבר למשתמש
     req.logIn(user, (err) => {
       if (err) {
         console.error('Login error:', err);
         return res.redirect('https://donation-project-client.onrender.com/github-success?email=login-error');
       }
-      
+
       console.log('Login successful');
-      
+
       // נסה לחלץ מייל
       let email = 'no-email';
       if (user.emails && user.emails.length > 0) {
@@ -218,12 +218,12 @@ router.get('/github/callback', (req, res, next) => {
         // אם אין מייל, נשתמש ב-username
         email = user.username || 'no-email';
       }
-      
+
       console.log('Redirecting with email:', email);
       try {
         // בדוק אם המשתמש קיים בבסיס הנתונים
         const userExists = await userCheckMail.checkUserByEmailOnly(email);
-        
+
         if (userExists === "גבאי") {
           res.send(`
             <script>
