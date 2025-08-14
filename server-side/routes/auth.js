@@ -186,7 +186,7 @@ router.get('/github/callback', (req, res, next) => {
   passport.authenticate('github', {
     failureRedirect: '/',
     session: true
-  }, async (err, user, info) => {
+  }, (err, user, info) => {
     console.log('=== Passport authenticate callback ===');
 
     if (err) {
@@ -200,75 +200,29 @@ router.get('/github/callback', (req, res, next) => {
     }
 
     // התחבר למשתמש
-    req.logIn(user, (err) => {
+    req.logIn(user, async (err) => {
       if (err) {
         console.error('Login error:', err);
         return res.redirect('https://donation-project-client.onrender.com/github-success?email=login-error');
       }
-
+    
       console.log('Login successful');
-
-      // נסה לחלץ מייל
+    
       let email = 'no-email';
       if (user.emails && user.emails.length > 0) {
         email = user.emails[0].value;
-        console.log('Found email:', email);
       } else {
-        console.log('No emails found in user object');
-        // אם אין מייל, נשתמש ב-username
         email = user.username || 'no-email';
       }
-
-      console.log('Redirecting with email:', email);
+    
       try {
-        // בדוק אם המשתמש קיים בבסיס הנתונים
         const userExists = await userCheckMail.checkUserByEmailOnly(email);
-
-        if (userExists === "גבאי") {
-          res.send(`
-            <script>
-              sessionStorage.setItem('github_login', 'true');
-              sessionStorage.setItem('github_email', '${email}');
-              sessionStorage.setItem('github_type', '1');
-              window.location.href = 'https://donation-project-client.onrender.com/';
-            </script>
-          `);
-        } else if (userExists === "תורם") {
-          res.send(`
-            <script>
-              sessionStorage.setItem('github_login', 'true');
-              sessionStorage.setItem('github_email', '${email}');
-              sessionStorage.setItem('github_type', '2');
-              window.location.href = 'https://donation-project-client.onrender.com/';
-            </script>
-          `);
-        } else if (userExists === "לא קיים") {
-          res.send(`
-            <script>
-              sessionStorage.setItem('github_error', 'not-registered');
-              sessionStorage.setItem('github_email', '${email}');
-              window.location.href = 'https://donation-project-client.onrender.com/';
-            </script>
-          `);
-        } else if (userExists === "שתי אפשרויות") {
-          res.send(`
-            <script>
-              sessionStorage.setItem('github_login', 'true');
-              sessionStorage.setItem('github_email', '${email}');
-              sessionStorage.setItem('github_two_options', 'true');
-              window.location.href = 'https://donation-project-client.onrender.com/';
-            </script>
-          `);
-        }
+        // המשך הקוד שלך...
       } catch (error) {
-        res.send(`
-          <script>
-            sessionStorage.setItem('github_error', 'database-error');
-            window.location.href = 'https://donation-project-client.onrender.com/';
-          </script>
-        `);
+        // טיפול בשגיאה...
       }
     });
+    
   })(req, res, next);
 });
 
