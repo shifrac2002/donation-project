@@ -146,58 +146,9 @@ function Donates() {
     const [currentShulsReturn, setCurrentShulsReturn] = useState([]);
     const [fromIndex, setFromIndex] = useState(0);
     const [twoOptions, setTwoOptions] = useState(false);
+
     useEffect(() => {
-        // בדוק אם יש נתונים מ-GitHub OAuth ב-URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const login = urlParams.get('login');
-        const email = urlParams.get('email');
-        const userType = urlParams.get('type');
-        const userId = urlParams.get('userId');
-        const multipleUsers = urlParams.get('multipleUsers');
-        const error = urlParams.get('error');
-        
-        // טיפול בהצלחת התחברות
-        if (login === 'success' && email) {
-            // נקה את ה-URL מהפרמטרים
-            window.history.replaceState({}, '', window.location.pathname);
-            
-            if (multipleUsers === 'true') {
-                // הצג אפשרויות בחירה
-                sessionStorage.setItem('email', email);
-                setTwoOptions(true);
-                return; // יוצא מ-useEffect
-                
-            } else if (userType && userId) {
-                // שמור את פרטי המשתמש
-                sessionStorage.setItem('email', email);
-                sessionStorage.setItem('type', userType);
-                sessionStorage.setItem('userId', userId);
-                
-                // נווט לפי הסוג
-                if (userType === '1') {
-                    navigate('/Gabay');
-                    return;
-                }
-                // אם type=2 (תורם), נשאר בדף הנוכחי
-            }
-        }
-        
-        // טיפול בשגיאות
-        if (error) {
-            // נקה את ה-URL
-            window.history.replaceState({}, '', window.location.pathname);
-            
-            if (error === 'not-registered') {
-                alert('המשתמש לא רשום במערכת - נא להירשם');
-                navigate('/SignUp', { state: { email: email } });
-                return;
-            } else {
-                alert('שגיאה בהתחברות - נסה שוב');
-                console.error('GitHub login error:', error);
-            }
-        }
-        
-        // בדוק אם יש sessionStorage ישן (לתמיכה לאחור)
+        // בדוק אם יש התחברות GitHub
         const githubLogin = sessionStorage.getItem('github_login');
         const githubEmail = sessionStorage.getItem('github_email');
         const githubType = sessionStorage.getItem('github_type');
@@ -206,28 +157,28 @@ function Donates() {
         
         if (githubLogin === 'true') {
             if (githubTwoOptions === 'true') {
+                // הצג אפשרויות בחירה
                 sessionStorage.setItem('email', githubEmail);
                 setTwoOptions(true);
                 
-                // ניקוי
+                // ניקוי חלקי
                 sessionStorage.removeItem('github_login');
                 sessionStorage.removeItem('github_two_options');
-                sessionStorage.removeItem('github_email');
-                return;
-                
             } else if (githubEmail && githubType) {
                 sessionStorage.setItem('email', githubEmail);
                 sessionStorage.setItem('type', githubType);
                 
-                // ניקוי
+                // ניקוי מלא
                 sessionStorage.removeItem('github_login');
                 sessionStorage.removeItem('github_email');
                 sessionStorage.removeItem('github_type');
                 
+                // נווט לפי הסוג
                 if (githubType === '1') {
                     navigate('/Gabay');
-                    return;
+                    return; // חשוב - יוצא מ-useEffect
                 }
+                // אם type=2 (תורם), הוא כבר בדף הנכון
             }
         }
         
@@ -236,124 +187,47 @@ function Donates() {
                 alert('המשתמש לא רשום במערכת - נא להירשם');
                 const email = sessionStorage.getItem('github_email');
                 navigate('/SignUp', { state: { email: email } });
+                
+                // ניקוי
+                sessionStorage.removeItem('github_error');
+                sessionStorage.removeItem('github_email');
+                return; // יוצא מ-useEffect
             } else {
                 alert('שגיאה בהתחברות - נסה שוב');
-            }
-            
-            // ניקוי
-            sessionStorage.removeItem('github_error');
-            sessionStorage.removeItem('github_email');
-            return;
-        }
-    
-        // טען בתי כנסת (רק אם לא היה redirect)
-        fetchShuls();
-    
-        async function fetchShuls() {
-            try {
-                const url = `https://donation-project-server.onrender.com/api/shul/all/${fromIndex}`;
-                const response = await fetch(url);
-                const current = await response.json();
                 
-                if (current == null) {
-                    alert("אין בתי כנסיות");
-                    setLoading(false);
-                    setEmptyData(true);
-                } else {
-                    setFromIndex(fromIndex + 10);
-                    setCurrentShulsReturn(current);
-                    setShuls(current);
-                    setLoading(false);
-                }
-            } catch (error) {
-                console.error('Error fetching shuls:', error);
-                setLoading(false);
+                // ניקוי
+                sessionStorage.removeItem('github_error');
+                sessionStorage.removeItem('github_email');
+            }
+        }
+
+        // רק אם לא התחברנו דרך GitHub, נטען את בתי הכנסת
+        if (!githubLogin && !githubError) {
+            fetchShuls();
+        } else if (githubLogin === 'true' && githubType === '2') {
+            // משתמש התחבר דרך GitHub וזה תורם - נטען את בתי הכנסת
+            fetchShuls();
+        }
+
+        async function fetchShuls() {
+            debugger
+            const url = `https://donation-project-server.onrender.com/api/shul/all/${fromIndex}`
+            let response = await fetch(url);
+            let current = await response.json();
+            if (current == null) {
+                alert("אין בתי כנסיות");
+                setLoading(false)
+                setEmptyData(true)
+            }
+            else {
+                setFromIndex(fromIndex + 10);
+                setCurrentShulsReturn(current);
+                setShuls(current);
+                setLoading(false)
             }
         }
     }, []);
-    // useEffect(() => {
-    //     // בדוק אם יש התחברות GitHub
-    //     const githubLogin = sessionStorage.getItem('github_login');
-    //     const githubEmail = sessionStorage.getItem('github_email');
-    //     const githubType = sessionStorage.getItem('github_type');
-    //     const githubTwoOptions = sessionStorage.getItem('github_two_options');
-    //     const githubError = sessionStorage.getItem('github_error');
-        
-    //     if (githubLogin === 'true') {
-    //         if (githubTwoOptions === 'true') {
-    //             // הצג אפשרויות בחירה
-    //             sessionStorage.setItem('email', githubEmail);
-    //             setTwoOptions(true);
-                
-    //             // ניקוי חלקי
-    //             sessionStorage.removeItem('github_login');
-    //             sessionStorage.removeItem('github_two_options');
-    //         } else if (githubEmail && githubType) {
-    //             sessionStorage.setItem('email', githubEmail);
-    //             sessionStorage.setItem('type', githubType);
-                
-    //             // ניקוי מלא
-    //             sessionStorage.removeItem('github_login');
-    //             sessionStorage.removeItem('github_email');
-    //             sessionStorage.removeItem('github_type');
-                
-    //             // נווט לפי הסוג
-    //             if (githubType === '1') {
-    //                 navigate('/Gabay');
-    //                 return; // חשוב - יוצא מ-useEffect
-    //             }
-    //             // אם type=2 (תורם), הוא כבר בדף הנכון
-    //         }
-    //     }
-        
-    //     if (githubError) {
-    //         if (githubError === 'not-registered') {
-    //             alert('המשתמש לא רשום במערכת - נא להירשם');
-    //             const email = sessionStorage.getItem('github_email');
-    //             navigate('/SignUp', { state: { email: email } });
-                
-    //             // ניקוי
-    //             sessionStorage.removeItem('github_error');
-    //             sessionStorage.removeItem('github_email');
-    //             return; // יוצא מ-useEffect
-    //         } else {
-    //             alert('שגיאה בהתחברות - נסה שוב');
-                
-    //             // ניקוי
-    //             sessionStorage.removeItem('github_error');
-    //             sessionStorage.removeItem('github_email');
-    //         }
-    //     }
 
-    //     // רק אם לא התחברנו דרך GitHub, נטען את בתי הכנסת
-    //     if (!githubLogin && !githubError) {
-    //         fetchShuls();
-    //     } else if (githubLogin === 'true' && githubType === '2') {
-    //         // משתמש התחבר דרך GitHub וזה תורם - נטען את בתי הכנסת
-    //         fetchShuls();
-    //     }
-
-    //     async function fetchShuls() {
-    //         debugger
-    //         const url = `https://donation-project-server.onrender.com/api/shul/all/${fromIndex}`
-    //         let response = await fetch(url);
-    //         let current = await response.json();
-    //         if (current == null) {
-    //             alert("אין בתי כנסיות");
-    //             setLoading(false)
-    //             setEmptyData(true)
-    //         }
-    //         else {
-    //             setFromIndex(fromIndex + 10);
-    //             setCurrentShulsReturn(current);
-    //             setShuls(current);
-    //             setLoading(false)
-    //         }
-    //     }
-    // }, []);
-
-
-    
     async function search() {
         debugger;
         setReturnBefor(true)
