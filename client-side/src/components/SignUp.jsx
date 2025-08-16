@@ -265,13 +265,13 @@ function SignUp() {
                 <input type="text" placeholder="שם בית כנסת" onBlur={insertShulName}></input>
                 <h2>הכנס כתובת </h2>
                 <input type="text" placeholder="כתובת מדויקת,שם עיר" onBlur={insertShulAddress}></input>
-                {/* <div className='App'>
-                    <h1>הוספת תמונה</h1>
+                <div className='App'>
+                    {/* <h1>הוספת תמונה</h1>
                     {image.preview && <img src={image.preview} width='100' height='100' />}
                     <hr></hr>
-                    <input type='file' name='file' onChange={handleFileChange}></input>
+                    <input type='file' name='file' onChange={handleFileChange}></input> */}
                     <button onClick={handleSubmit}>הכנס</button>
-                </div> */}
+                </div>
             </div>}
         </div>);
 }
