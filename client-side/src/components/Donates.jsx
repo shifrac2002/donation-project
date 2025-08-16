@@ -130,7 +130,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import NavDonate from './NavDonate'
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 
 function Donates() {
