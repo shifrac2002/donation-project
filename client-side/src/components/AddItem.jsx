@@ -98,11 +98,11 @@ function AddItem(props) {
             <input className='confirmationInpImage' type="text" placeholder="כמות" onBlur={insertAmount}></input>
             <h2 className='tDonate'>סכום תרומה עבור פריט בודד</h2>
             <input className='confirmationInpImage' type="text" placeholder=" מחיר לבודד " onBlur={insertPrice}></input>
-            <div className='App'>
+            {/* <div className='App'>
                 <h2 className='tDonate'>הוספת תמונה</h2>
                 {image.preview && <img src={image.preview} width='100' height='100' />}
                 <input className='confirmationInpImage' type='file' name='file' onChange={handleFileChange}></input>
-            </div>
+            </div> */}
             <button className='buttonAddItem' onClick={AddClicked}>הוסף</button>
         </div>);
 }
