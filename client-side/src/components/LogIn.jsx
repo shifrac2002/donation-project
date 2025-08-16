@@ -323,7 +323,7 @@ function LogIn() {
             setIsGithubLoading(true);
             
             // תחילה בדוק אם כבר מחובר
-            const checkResponse = await fetch('https://donation-project-server.onrender.com/api/auth/github-check', {
+            const checkResponse = await fetch('https://donation-project-server.onrender.com/api/auth/github', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
