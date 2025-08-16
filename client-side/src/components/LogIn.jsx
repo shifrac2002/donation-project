@@ -43,7 +43,7 @@ function LogIn() {
             if (user.email == '' || user.password == '')
                 alert("פרטים לא מלאים");
             else {
-                const url = `http://localhost:6200/api/user/logIn`;
+                const url = `https://donation-project-server.onrender.com/api/user/logIn`;
                 let response = await fetch(url, {
                     method: 'POST',
                     headers: {
