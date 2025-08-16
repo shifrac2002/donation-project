@@ -154,8 +154,10 @@ function Donates() {
         const githubType = sessionStorage.getItem('github_type');
         const githubTwoOptions = sessionStorage.getItem('github_two_options');
         const githubError = sessionStorage.getItem('github_error');
+        console.log(githubLogin, githubEmail, githubType, githubTwoOptions, githubError)
         
         if (githubLogin === 'true') {
+        const githubType = sessionStorage.getItem('github_type');
             if (githubTwoOptions === 'true') {
                 // הצג אפשרויות בחירה
                 sessionStorage.setItem('email', githubEmail);
