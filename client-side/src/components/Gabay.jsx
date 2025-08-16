@@ -61,7 +61,7 @@ function Gabay() {
                     <Link to="./DonatedItems" onClick={enterAction}>הצג את כל התרומות</Link>
                     <Link to="./Dedications" onClick={enterAction}>הקדשות</Link>
                     <Link to="./UpdateUser" onClick={enterAction}>עדכון פרטים אישיים</Link>
-                    {(sessionStorage.getItem("email")) && <Link to="/UpdateUser" onClick={enterAction}>עדכון פרטים אישיים</Link>}
+                    {/* {(sessionStorage.getItem("email")) && <Link to="/UpdateUser" onClick={enterAction}>עדכון פרטים אישיים</Link>} */}
                     {NumberWorshipersT && <Link to="/Donates" onClick={enterAction} onClick={() => { sessionStorage.setItem('email', ''); }} >יציאה מ- {sessionStorage.getItem("email")} | מספר מתפללים בבית הכנסת - {NumberWorshipers}|</Link>}
                     {!NumberWorshipersT && <Link to="/Donates" onClick={enterAction} onClick={() => { sessionStorage.setItem('email', ''); }} >יציאה מ- {sessionStorage.getItem("email")} </Link>}
                 </nav>
