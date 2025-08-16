@@ -130,6 +130,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import NavDonate from './NavDonate'
+import { useLocation, useNavigate } from "react-router-dom";
+
 
 function Donates() {
     let navigate = useNavigate();
@@ -146,7 +148,8 @@ function Donates() {
     const [currentShulsReturn, setCurrentShulsReturn] = useState([]);
     const [fromIndex, setFromIndex] = useState(0);
     const [twoOptions, setTwoOptions] = useState(false);
-
+    const location = useLocation();  // זה ה־location הנכון
+    
     useEffect(() => {
         // קריאת הפרמטרים מה-URL
         const urlParams = new URLSearchParams(window.location.search);
@@ -198,7 +201,7 @@ function Donates() {
             // נקה את ה-URL
             window.history.replaceState({}, document.title, window.location.pathname);
         }
-        
+
         // רק אם לא התחברנו דרך GitHub, נטען את בתי הכנסת
         if (!githubLogin && !githubError) {
             fetchShuls();
