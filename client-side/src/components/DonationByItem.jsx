@@ -105,7 +105,8 @@ function DonationByItem() {
             {!returnBefor && <input className="inputSearch" type="text" placeholder="חיפוש" onBlur={nameItem}></input>}
             {!returnBefor && <button className="buttonSearch" onClick={search}>חיפוש</button>}
             {(!exist) && <label>פריט זה לא קים במאגר</label>}
-            {exist && <div className="shulImages">{items.map((item) => { return (<button className="btnShul" onClick={() => itemToDonate(item.Id)} key={item.Id} value={item.Id}><img className="shulImg" src={item.Img}></img>{item.Name}</button>) })}</div>}
+            {exist && <div className="shulImages">{items.map((item) => { return (<button className="btnShul" onClick={() => itemToDonate(item.Id)} key={item.Id} value={item.Id}>{item.Name}</button>) })}</div>}
+            {/* {exist && <div className="shulImages">{items.map((item) => { return (<button className="btnShul" onClick={() => itemToDonate(item.Id)} key={item.Id} value={item.Id}><img className="shulImg" src={item.Img}></img>{item.Name}</button>) })}</div>} */}
             {moreItems && <button className='btnBack' onClick={more}>הצג עוד פריטים</button>}
             {returnBefor && <button className='btnBack' onClick={bach}>חזור</button>}
         </div>

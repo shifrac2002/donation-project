@@ -327,9 +327,12 @@ function Donates() {
             {!emptyData && !loading && !returnBefor && <input className="inputSearch" type="text" placeholder="חיפוש" onBlur={nameShul}></input>}
             {!emptyData && !loading && !returnBefor && <button className="buttonSearch" onClick={search}>חיפוש</button>}
             {!emptyData && !loading && (!exist) && <label>בית כנסת זה לא קים במאגר</label>}
-            {!emptyData && !loading && <div className="shulImages">  {shuls.map((shul) => { return (<button className="btnShul" onClick={() => ItemOfShul(shul)} key={shul.ShulId} value={shul.NameShul}><img className="shulImg" src={shul.Img} alt={shul.NameShul}></img>{shul.NameShul}<br></br>{shul.Address}</button>) })}
+            {!emptyData && !loading && <div className="shulImages">  {shuls.map((shul) => { return (<button className="btnShul" onClick={() => ItemOfShul(shul)} key={shul.ShulId}>{shul.NameShul}<br></br>{shul.Address}</button>) })}
                 {(exist) && moreShul && <button className='btnBack' onClick={more}>הצג עוד בתי כנסת</button>}
             </div>}
+            {/* {!emptyData && !loading && <div className="shulImages">  {shuls.map((shul) => { return (<button className="btnShul" onClick={() => ItemOfShul(shul)} key={shul.ShulId}><img className="shulImg" src={shul.Img} alt={shul.NameShul}></img>{shul.NameShul}<br></br>{shul.Address}</button>) })}
+                {(exist) && moreShul && <button className='btnBack' onClick={more}>הצג עוד בתי כנסת</button>}
+            </div>} */}
             {emptyData &&<h1>אין בתי כנסיות</h1>}
             {returnBefor && !loading && <button className='btnBack' onClick={back}>חזור</button>}
         </div>);
