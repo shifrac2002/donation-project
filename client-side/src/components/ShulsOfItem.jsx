@@ -96,7 +96,7 @@ function ShulsOfItem() {
             <div className="itemsOfShul">
                 {exist && (!flag) && shulWithAmount.map((data) => {
                     return (<div className="itemShul" key={data.Id} value={data.Id}>
-                        <img className="shulImg" src={data.Img}></img>
+                        {/* <img className="shulImg" src={data.Img}></img> */}
                         <h2 className='h2Titel'>{data.NameShul}</h2>
                         <p>{data.Address}</p>
                         <p>סך לתרומה עבור פריט יחיד: {data.Price}</p>
