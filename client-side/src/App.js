@@ -18,7 +18,7 @@ function App() {
     return (
       <Router>
         <Routes>
-          <Route path="/" element={<Navigate replace to="/Donates" />} />
+          <Route path="/" element={<Donates />} />
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/LogIn" element={<LogIn />} />
           <Route path="/github-success" element={<GitHubSuccess />} />
